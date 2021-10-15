@@ -22,7 +22,6 @@ git clone https://github.com/United-AI/image-generator
 ```
 Falls dein PC kein git hat:
 https://git-scm.com/downloads
----
 
 ## Installation:
 
