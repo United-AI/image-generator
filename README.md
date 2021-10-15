@@ -2,7 +2,6 @@
 ---
 Ein Projekt unseres Vereins zur Generierung von Bildern.
 ## To-do's
----
 Projektname
 Trainieren auf 120x120 Pixeln
 Datensatz
@@ -23,7 +22,7 @@ cd /PATH_ORDNER
 ---
 Clonen sie den Repository mit:
 ```
-> git clone https://github.com/United-AI/image-generator
+git clone https://github.com/United-AI/image-generator
 ```
 Falls dein PC kein git hat:
 https://git-scm.com/downloads
@@ -39,7 +38,7 @@ https://www.python.org/downloads/
 
 Im Repository Ordner gibst du folgenden command ein:
 ```
-> pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 (Ab hier optional für Grafikkarten nutzung. Nur für NVIDIA Grafikkarten mit CUDA Enabled) 
 
@@ -55,19 +54,27 @@ Downloaden der cuDNN library (Registrierung ins Developer Programm erforderlich)
 Installation der cuDNN library: https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
 
 ### Schritt 5: Checken ob tensorflow deine Grafikkarte erkennt
-Open python with:
-> python
+Öffnen von python:
+```
+python
+```
 Import tensorflow:
-> import tensorflow as tf
+```
+import tensorflow as tf
+```
 Type in command:
-> print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+```
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+```
 Falls der output 0 ist, erkennt tensorflow deine Grafikkarte nicht. Check deine CUDA und cuDNN installation.
 ---
 
 
 
 ## Letzter Schritt: Starten des Training vorgangs
-> python main.py
+```
+python main.py
+```
 ---
 
 
