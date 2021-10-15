@@ -61,6 +61,10 @@ print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 Falls der output 0 ist, erkennt tensorflow deine Grafikkarte nicht. Check deine CUDA und cuDNN installation.
 
 ## Letzter Schritt: Starten des Training vorgangs
+
+Öffne Setup.py mit dem Editor.  
+Ändere dein input und output und speicher es ab.  
+Starte das training mit:
 ```
 python main.py
 ```
