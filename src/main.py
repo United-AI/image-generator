@@ -111,7 +111,6 @@ def discriminator_loss(real_output, fake_output):
 def generator_loss(fake_output):
     return cross_entropy(tf.ones_like(fake_output), fake_output)
 
-
 # Notice the use of `tf.function`
 # This annotation causes the function to be "compiled".
 @tf.function
