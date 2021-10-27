@@ -14,7 +14,6 @@ from IPython import display
 print('Tensorflow version: ' + tf.__version__)
 setup = Setup.Setup()
 
-
 BATCH_SIZE = setup.BATCH_SIZE
 IMAGE_SIZE = setup.IMAGE_SIZE 
 IMAGE_CHANNELS = 3  # can be 3 (RGB) or 1 (Grayscale)
@@ -102,6 +101,7 @@ generator = make_generator_model()
 
 # This method returns a helper function to compute cross entropy loss
 cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+
 def discriminator_loss(real_output, fake_output):
     real_loss = cross_entropy(tf.ones_like(real_output), real_output)
     fake_loss = cross_entropy(tf.zeros_like(fake_output), fake_output)
