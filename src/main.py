@@ -16,7 +16,7 @@ setup = Setup.Setup()
 
 BATCH_SIZE = setup.BATCH_SIZE
 IMAGE_SIZE = setup.IMAGE_SIZE 
-IMAGE_CHANNELS = 3  # can be 3 (RGB) or 1 (Grayscale)
+IMAGE_CHANNELS = 1  # can be 3 (RGB) or 1 (Grayscale)
 LATENT_SPACE_DIM = 100  # dimensions of the latent space that is used to generate the images
 
 assert IMAGE_SIZE % 4 == 0
@@ -26,7 +26,7 @@ def preprocess(file_path):
     # load the raw data from the file as a string
     img = tf.io.read_file(file_path)
     # load the image as uint8 array and transform to grayscale
-    img = tf.image.decode_jpeg(img, channels=IMAGE_CHANNELS)
+    img = tf.image.decode_png(img, channels=IMAGE_CHANNELS)
     # resize the image to the desired size
     img = tf.image.resize(img, [IMAGE_SIZE, IMAGE_SIZE])
     # transform the color values from [0, 255] to [-1, 1]. The division changes the datatype to float32
@@ -96,8 +96,12 @@ def make_discriminator_model():
 generator_optimizer = tf.keras.optimizers.Adam(1e-4)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-4)
 
-discriminator = make_discriminator_model()
-generator = make_generator_model()
+if setup.load_model == True:
+    generator = tf.keras.models.load_model(setup.checkpoint_dir+"generator")
+    discriminator = tf.keras.models.load_model(setup.checkpoint_dir+"discriminator")
+else:
+    discriminator = make_discriminator_model()
+    generator = make_generator_model()
 
 # This method returns a helper function to compute cross entropy loss
 cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
@@ -110,6 +114,7 @@ def discriminator_loss(real_output, fake_output):
 
 def generator_loss(fake_output):
     return cross_entropy(tf.ones_like(fake_output), fake_output)
+
 
 # Notice the use of `tf.function`
 # This annotation causes the function to be "compiled".
@@ -153,9 +158,12 @@ def train(dataset, epochs, save_after):
         if (epoch + 1) % save_after == 0:
             # Produce images for the GIF as we go
             display.clear_output(wait=True)
+            generator.save(setup.checkpoint_dir+"generator")
+            discriminator.save(setup.checkpoint_dir+"discriminator")
             generate_and_save_images(generator,
                              epoch + 1,
                              seed)
+            
         print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
 
     # Generate after the final epoch
@@ -180,6 +188,9 @@ def generate_and_save_images(model, epoch, test_input):
         plt.axis('off')
     plt.suptitle(f'Epoch {epoch}')
     plt.savefig(setup.output_dir + '/image_at_epoch_{:04d}.png'.format(epoch))
+    plt.close(fig)
     print('Generated Epoch: ' + str(epoch))
 
-train(train_dataset, epochs=setup.EPOCHS, save_after=1)
+train(train_dataset, epochs=setup.EPOCHS, save_after=100)
+
+

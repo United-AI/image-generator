@@ -1,6 +1,6 @@
 import imageio
 import Setup
-
+import glob
 setup = Setup.Setup()
 anim_file = 'dcgan.gif'
 
