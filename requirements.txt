@@ -2,3 +2,4 @@ imageio
 matplotlib
 numpy
 tensorflow
+selenium
