@@ -8,16 +8,13 @@ import os
 import io
 import hashlib
 import tkinter as tk
+from Setup import Setup
 # This is the path I use
 # DRIVER_PATH = '.../Desktop/Scraping/chromedriver 2'
 # Put the path for your ChromeDriver here
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
-
-DRIVER_PATH = "C:/Users/Christian/Desktop/chromedriver_win32/chromedriver"
-#wd = webdriver.Chrome(executable_path=DRIVER_PATH)
-
 
 def saveyes():
     global yesorno
@@ -140,5 +137,5 @@ def search_and_download(search_term:str,driver_path:str,target_path='./images',n
     root.destroy()
 
 start = time.time()
-search_and_download("celebrity face",DRIVER_PATH,number_images=50)
+search_and_download(Setup.Search_Term,Setup.DRIVER_PATH,number_images=Setup.amount_images
 print(time.time()-start)
