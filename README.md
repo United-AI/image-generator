@@ -1,4 +1,4 @@
-# image-generator
+# image-generator aka AI-Merch
 ---
 Ein Projekt unseres Vereins zur Generierung von Bildern.
 ## To-do's
